@@ -31,8 +31,6 @@ install:
   - ECHO "Filesystem root:"
   - ps: "ls \"C:/\""
 
-  - ps: if (-not(Test-Path($env:PYTHON))) { & appveyor\install.ps1 }
-
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
 
   - "python --version"
@@ -40,7 +38,7 @@ install:
 
   - "pip install --disable-pip-version-check --user --upgrade pip"
   
-  - "%CMD_IN_ENV% pip install -r requirements-dev.txt"
+  - "%CMD_IN_ENV% pip install -r requirements.txt"
 
   - "reg delete HKEY_CLASSES_ROOT\\.py\\OpenWithProgids /f"
 
