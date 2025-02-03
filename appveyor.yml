@@ -1,40 +1,24 @@
+image:
+  - Visual Studio 2019
+
 environment:
-  global:
-    CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\appveyor\\run_with_env.cmd"
-
   matrix:
-    - PYTHON: "C:\\Python37"
-      PYTHON_VERSION: "3.4.x" # currently 3.4.3
-      PYTHON_ARCH: "32"
+  # - TOXENV: py27  # end-of-life-branches
+  # - TOXENV: py37
+  - TOXENV: py38    # https://devguide.python.org/versions
+  - TOXENV: py39
+  - TOXENV: py310
+  - TOXENV: py311
+  - TOXENV: py312
+  - PY_PYTHON: 3.12  # Run a Tox job to run the ruff linter on Python 3.12
+    TOXENV: ruff
 
-    - PYTHON: "C:\\Python37-x64"
-      PYTHON_VERSION: "3.4.x" # currently 3.4.3
-      PYTHON_ARCH: "64"
-
-    - PYTHON: "C:\\Python38"
-      PYTHON_VERSION: "3.5.x" # currently 3.5.0
-      PYTHON_ARCH: "32"
-
-    - PYTHON: "C:\\Python38-x64"
-      PYTHON_VERSION: "3.5.x" # currently 3.5.0
-      PYTHON_ARCH: "64"
+build: false
 
 install:
-  - ECHO "Filesystem root:"
-  - ps: "ls \"C:/\""
-
-  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
-
-  - "python --version"
-  
-  - "%CMD_IN_ENV% pip install -r requirements.txt"
-
-  - "reg delete HKEY_CLASSES_ROOT\\.py\\OpenWithProgids /f"
-
-  - ps: cmd /c ftype Python.File="C:\Windows\py.exe" "%1" %*
-  - ftype Python.File
-build_script:
-  - "echo NO-OP"
+  # - py --list
+  # - py -m pip install --upgrade pip
+  - py -m pip install tox
 
 test_script:
-  - "%CMD_IN_ENV% python app.py -v"
+  - py -m tox
