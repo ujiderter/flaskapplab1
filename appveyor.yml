@@ -7,5 +7,7 @@ init:
 install:
 - ps: python -m pip install --disable-pip-version-check --upgrade --no-warn-script-location pip build virtualenv wheel
 
+build: false
+
 test_script:
 - ps: python app.py
