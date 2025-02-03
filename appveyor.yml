@@ -50,4 +50,4 @@ build_script:
   - "echo NO-OP"
 
 test_script:
-  - "%CMD_IN_ENV% python test.py -v"
+  - "%CMD_IN_ENV% python app.py -v"
