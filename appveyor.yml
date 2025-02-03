@@ -4,7 +4,6 @@ image:
 environment:
   matrix:
   - TOXENV: py38
-    TOXENV: ruff
 
 build: false
 
